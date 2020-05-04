@@ -1,0 +1,11 @@
+main: xy.plugins.villagermodifications.VillagerModifications
+author: Xy
+version: 1.0.1
+api-version: 1.13
+name: VillagerModifications
+
+commands:
+  vmreload:
+    description: Reload the plugin.yml
+    usage: /<command>
+    aliases: [vmr]

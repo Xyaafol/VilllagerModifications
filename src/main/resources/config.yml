@@ -1,0 +1,88 @@
+#######################################################################################################
+# Version: 1.1.4                                                                                      #
+# By: Xyaafol                                                                                         #
+# Commands:                                                                                           #
+# /vmreload - Reloads the plugin with settings changed in this file. Requires OP.                     #
+# /vmbook - Gives the player a book example of the book used for the book restriction. Requires OP.   #
+#######################################################################################################
+
+# begin: Time in ticks that villagers can be traded from (day starts at 1000 ticks). Set to 2000 by default.
+# end: time in ticks that villagers can be traded until (night starts at 13000 ticks). Set to 8999 by default.
+
+Work:
+  begin: 2000
+  end: 8999
+
+
+# allVillagers: Value of 0 by default means that only villagers with trades containing restricted books are bound by Work begin and Work end.
+#Set to 1 for all villagers to be restricted.
+
+allVillagers: 0
+
+
+# mending: All configs under this heading effect villagers with mending trades.
+
+# restricted: Controls if villagers with this enchanted book follow the begin and end times above.
+#Value of 0 by default for work time restrictions active on mending. Set to 0 for time restrictions off.
+
+# change: Controls if villagers with this enchanted book have the trade containing said book changed to the following material, cost, book, and uses set below.
+#Value of 0 by default, set to 1 to activate changed trades.
+
+# material: Controls the item that is used in place of emeralds in the trade. Must be all caps and offical bukkit names.
+#Default EMERALD, examples; EMERALD_BLOCK, DIAMOND, DIAMOND_BLOCK
+
+# cost: Number of the material item needed for the trade.
+#Value of 64 by default. Obeys default material stack count.
+
+# book: Changes book needed for the trade to a custom book. Set to 0 for normal book trade.
+#Value of 0 by default. Used for making mending trades only possible with create or kit rewards. Use /vmbook to recieve a copy for setup.
+#Custom Book Name: "&aVillager Trade Book", Lore: "Trade Value:1".
+
+# uses:Number of times the trade can be used before the villager restocks.
+#Anywhere from 0 for cant trade at all to 9999 for infinite trades. Default 1.
+#Villagers will still restock up to 2 times per day.
+
+mending:
+  restricted: 0
+  change: 0
+  material: EMERALD
+  cost: 64
+  book: 0
+  uses: 1
+
+
+# silk: All configs under this heading effect villagers with mending trades.
+
+silk:
+  restricted: 0
+  change: 0
+  material: EMERALD
+  cost: 34
+  book: 0
+  uses: 1
+
+
+# fortune: All configs under this heading effect villagers with mending trades.
+#Does NOT distinguish between Fortune 1, 2, or 3. All are effected.
+
+fortune:
+  restricted: 0
+  change: 0
+  material: EMERALD
+  cost: 64
+  book: 0
+  uses: 1
+
+
+# fortune: All configs under this heading effect villagers with unbreaking trades.
+#Does NOT distinguish between Unbreaking 1, 2, and 3. All are effected.
+
+unbreaking:
+  restricted: 0
+  change: 0
+  material: EMERALD
+  cost: 64
+  book: 0
+  uses: 1
+
+
