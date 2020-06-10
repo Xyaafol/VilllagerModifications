@@ -1,0 +1,31 @@
+main: xy.plugins.villagermodifications.VillagerModifications
+author: Xy
+version: 1.3.0
+api-version: 1.13
+name: VillagerModifications
+
+commands:
+  vmreload:
+    description: Reload the plugin.yml
+    usage: /<command>
+    aliases: [vmr]
+
+  vmbook:
+    description: Gives the player a copy of the villager trading book. Used for a template for crate rewards.
+    usage: /<command>
+
+  vmwhitelist:
+    description: Toggles the ability to whitelist villagers by interacting with them.
+    usage: /<command>
+
+  vmoff:
+    description: Turns off both /vmwhitelist and /vmremove.
+    usage: /<command>
+
+  vmremove:
+    description: Toggles the ability to remove villagers from the whitelist by interacting with them.
+    usage: /<command>
+
+  vmtime:
+    description: Sends a message to the user displaying the time in ticks that villagers are set to. Used for debugging only - not intended for players.
+    usage: /<command>
