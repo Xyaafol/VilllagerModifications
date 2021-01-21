@@ -1,5 +1,5 @@
 #######################################################################################################
-# Version: 1.1.4                                                                                      #
+# Version: 1.4.2                                                                                      #
 # By: Xyaafol                                                                                         #
 # Commands:                                                                                           #
 # /vmreload - Reloads the plugin with settings changed in this file. Requires OP.                     #
@@ -8,25 +8,92 @@
 
 # begin: Time in ticks that villagers can be traded from (day starts at 1000 ticks). Set to 2000 by default.
 # end: time in ticks that villagers can be traded until (night starts at 13000 ticks). Set to 8999 by default.
+# alert: sends a message to the player if enabled to tell them that the villager is ony available during work hours.
 
 Work:
   begin: 2000
   end: 8999
 
 
-# allVillagers: Value of 0 by default means that only villagers with trades containing restricted books are bound by Work begin and Work end.
+# alert: Sends an alert to the players when they interact with an unavailable villager.
+# on: 0 for off, 1 for on.
+# message: The alert that will be sent to the player if alert is on.
+
+AlertOn: 0
+AlertMessage: "This villager is outside of it's work times"
+
+
+
+# allVillagers: sets an override for all villagers
+# restricted: Value of 0 by default means that only villagers with trades containing restricted books are bound by Work begin and Work end.
 #Set to 1 for all villagers to be restricted.
+# disablexp: Value of 0 by default, change to 1 to disable player gaining xp from all trades.
+# levelmax: Value of 0 by default, change to 1 in order to give all villagers max xp when first interacting with them. Players will then only have to trade once each time to level them up
+#Use in the case that you want all villager trades to be alot more accessable to the players.
+# HotV(Hero of the Village): Value of 5 by default, Controls the maximimum level of hero of the village buff possible - will reduce any levels of the effect down to this if the player has a level higher than the value.
+#Players can get up to HotV level 5 in the game naturally, giving a 55% discount. Set to 0 to completely disable the effect.
 
-allVillagers: 0
+
+allVillagers:
+  restricted: 0
+  disablexp: 0
+  levelmax: 0
+  HotV: 5
 
 
-# mending: All configs under this heading effect villagers with mending trades.
+# TradesOff: Set this to 1 in order to disable all villager trades. Good for completely removing the trading aspect of the game.
+#Do not set this value to anything other than 0 or 1. This will stop the plugin from changing trades at all.
+
+TradesOff: 0
+
+
+
+# CustomItem: Add the bukkit name of any item here that villagers sell to alter its trade.
+#Copy the example of clock at the bottom of the config in order to edit the changes to the trade.
+
+CustomItem:
+  - "CLOCK"
+  - "COAL_ORE"
+
+
+
+# enchantments: Enter any enchantments here and then their corresponding restrictions below
+#Please ensure that all enchantments are spelt correctly and have the level following a colon after them
+#Use underscores for all spaces in enchantment names
+#Enchantments with no level normally attached to them should be written as 'silk_touch:1"
+
+enchantments:
+  - "mending:1"
+  - "silk_touch:1"
+  - "efficiency:5"
+  - "efficiency:4"
+  - "fortune:3"
+  - "unbreaking:3"
+
+
+# Book-Title: Controls the title of the book in the 'book' control for trades
+# Book-Lore: Controls the lore of the book in the 'book' control for trades.
+
+Book:
+  Title: "§aVillager Trade Book"
+  Lore: "Trade Value:1"
+
+
+# mending: Copy this block of code and change the enchantment name to any that you would like to control.
+#Use the same name as under enchantments but with the colon replaced with an underscore.
 
 # restricted: Controls if villagers with this enchanted book follow the begin and end times above.
 #Value of 0 by default for work time restrictions active on mending. Set to 0 for time restrictions off.
 
 # change: Controls if villagers with this enchanted book have the trade containing said book changed to the following material, cost, book, and uses set below.
 #Value of 0 by default, set to 1 to activate changed trades.
+
+# xpvalue: Controls the amount of experience the villager gains for their profession level when this trade is used.
+#Value of 2 by default, would require 10 trades to reach the second villager level. Use the xp scale to keep the trade xp working at all levels.
+#Recommended to keep at 1 or 2 any more will make it very easy to level up using the trade.
+
+# xpscale: Toggles the setting to allow or stop the scaling of xp in relation to the villager level. If disabled trades will reward alot less villager xp after one each level up.
+#Value of 1 by default, recommended to keep at 1 unless you know more about villager trade levels.
 
 # material: Controls the item that is used in place of emeralds in the trade. Must be all caps and offical bukkit names.
 #Default EMERALD, examples; EMERALD_BLOCK, DIAMOND, DIAMOND_BLOCK
@@ -36,53 +103,95 @@ allVillagers: 0
 
 # book: Changes book needed for the trade to a custom book. Set to 0 for normal book trade.
 #Value of 0 by default. Used for making mending trades only possible with create or kit rewards. Use /vmbook to recieve a copy for setup.
-#Custom Book Name: "&aVillager Trade Book", Lore: "Trade Value:1".
 
 # uses:Number of times the trade can be used before the villager restocks.
 #Anywhere from 0 for cant trade at all to 9999 for infinite trades. Default 1.
 #Villagers will still restock up to 2 times per day.
 
-mending:
+
+mending_1:
   restricted: 0
   change: 0
+  xpvalue: 2
+  xpscale: 1
   material: EMERALD
   cost: 64
   book: 0
   uses: 1
 
 
-# silk: All configs under this heading effect villagers with mending trades.
+# silk_touch: All configs under this heading effect villagers with silk touch trades.
 
-silk:
+silk_touch_1:
   restricted: 0
   change: 0
+  xpvalue: 2
+  xpscale: 1
   material: EMERALD
   cost: 34
   book: 0
   uses: 1
 
 
-# fortune: All configs under this heading effect villagers with mending trades.
-#Does NOT distinguish between Fortune 1, 2, or 3. All are effected.
+# fortune_3: All configs under this heading effect villagers with fortune 3 trades.
 
-fortune:
+fortune_3:
   restricted: 0
   change: 0
+  xpvalue: 2
+  xpscale: 1
   material: EMERALD
   cost: 64
   book: 0
   uses: 1
 
 
-# fortune: All configs under this heading effect villagers with unbreaking trades.
-#Does NOT distinguish between Unbreaking 1, 2, and 3. All are effected.
+# unbreaking_3: All configs under this heading effect villagers with unbreaking 3 trades.
 
-unbreaking:
+unbreaking_3:
   restricted: 0
   change: 0
+  xpvalue: 2
+  xpscale: 1
   material: EMERALD
   cost: 64
   book: 0
   uses: 1
 
 
+# efficiency_5: All configs under this heading effect villagers with efficiency 5 trades.
+
+efficiency_5:
+  restricted: 0
+  change: 0
+  xpvalue: 2
+  xpscale: 1
+  material: EMERALD
+  cost: 64
+  book: 0
+  uses: 1
+
+
+# efficiency_4: All configs under this heading effect villagers with efficiency 4 trades.
+
+efficiency_4:
+  restricted: 0
+  change: 0
+  xpvalue: 2
+  xpscale: 1
+  material: EMERALD
+  cost: 64
+  book: 0
+  uses: 1
+
+
+#Example for custom item restriction. Does not have the option for 'book' as most trades are just emeralds.
+
+CLOCK:
+  restricted: 0
+  change: 0
+  xpvalue: 2
+  xpscale: 1
+  material: EMERALD
+  cost: 64
+  uses: 1
