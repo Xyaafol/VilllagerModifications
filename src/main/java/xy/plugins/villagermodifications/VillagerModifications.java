@@ -226,7 +226,7 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
                             if (vchange == 1) {
                                 int uses = recipe.getUses();
                                 ItemStack currency = new ItemStack(Material.getMaterial(vmaterial), vcost);
-                                ItemStack tradeditem = new ItemStack(recipe.getResult().getType(), recipe.getResult().getAmount());
+                                ItemStack tradeditem = new ItemStack(recipe.getResult());
 
 
                                 MerchantRecipe changedrec = new MerchantRecipe(tradeditem, vuses);
