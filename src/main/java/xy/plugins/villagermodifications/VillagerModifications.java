@@ -201,10 +201,11 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
 
 
                     for (String item : restricteditems) {
+                        item = item.toUpperCase();
                         if (recipe.getResult().getType().equals(Material.matchMaterial(item))) {
                             int vrestricted = cfg.getInt(item + ".restricted");
                             int vchange = cfg.getInt(item + ".change");
-                            String vmaterial = cfg.getString(item + ".material");
+                            String vmaterial = cfg.getString(item + ".material").toUpperCase();
                             int vcost = cfg.getInt(item + ".cost");
                             int vuses = cfg.getInt(item + ".uses");
                             int vxpvalue = cfg.getInt(item + ".xpvalue");
@@ -226,7 +227,7 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
                             if (vchange == 1) {
                                 int uses = recipe.getUses();
                                 ItemStack currency = new ItemStack(Material.getMaterial(vmaterial), vcost);
-                                ItemStack tradeditem = new ItemStack(recipe.getResult());
+                                ItemStack tradeditem = recipe.getResult();
 
 
                                 MerchantRecipe changedrec = new MerchantRecipe(tradeditem, vuses);
