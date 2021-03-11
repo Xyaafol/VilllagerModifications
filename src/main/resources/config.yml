@@ -1,5 +1,5 @@
 #######################################################################################################
-# Version: 1.4.2                                                                                      #
+# Version: 1.4.5                                                                                      #
 # By: Xyaafol                                                                                         #
 # Commands:                                                                                           #
 # /vmreload - Reloads the plugin with settings changed in this file. Requires OP.                     #
@@ -33,12 +33,16 @@ AlertMessage: "This villager is outside of it's work times"
 # HotV(Hero of the Village): Value of 5 by default, Controls the maximimum level of hero of the village buff possible - will reduce any levels of the effect down to this if the player has a level higher than the value.
 #Players can get up to HotV level 5 in the game naturally, giving a 55% discount. Set to 0 to completely disable the effect.
 
+# changeProfessions: Set to true by default - change this to false in order to stop villagers changing their professions once one has been chosen.
+#Will stop the game from letting villagers change to the no profession state again - ensuring they cannot choose another.
+#Can be reversed by setting back to true.
 
 allVillagers:
   restricted: 0
   disablexp: 0
   levelmax: 0
   HotV: 5
+  changeProfessions: true
 
 
 # TradesOff: Set this to 1 in order to disable all villager trades. Good for completely removing the trading aspect of the game.
