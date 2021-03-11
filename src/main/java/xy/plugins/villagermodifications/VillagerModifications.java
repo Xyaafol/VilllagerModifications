@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.VillagerCareerChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
@@ -47,6 +48,7 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
     private String widentifier;
     private String bidentifier;
     private String alertmessage;
+    private boolean professionchange;
 
 
     @Override
@@ -92,6 +94,7 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
         this.BookTitle = cfg.getString("Book.Title");
         this.MaxLevel = cfg.getInt("allVillagers.levelmax");
         this.HotV = cfg.getInt("allVillagers.HotV", 5);
+        this.professionchange = cfg.getBoolean("allVillagers.changeProfessions", true);
     }
 
 
@@ -464,12 +467,19 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
                 System.out.println("Trades begin at " + begin + " ticks and ends at " + end + " ticks.");
             }
             return true;
-
-
-
         }
-
-
         return false;
+    }
+
+    @EventHandler
+    public void jobloss(VillagerCareerChangeEvent event) {
+        if (professionchange) {
+            return;
+        }
+        if (!event.getProfession().toString().equals("NONE")) {
+            return;
+        }
+        event.setCancelled(true);
+
     }
 }
