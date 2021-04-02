@@ -1,10 +1,29 @@
 #######################################################################################################
-# Version: 1.4.5                                                                                      #
+# Version: 1.5.0                                                                                      #
 # By: Xyaafol                                                                                         #
 # Commands:                                                                                           #
 # /vmreload - Reloads the plugin with settings changed in this file. Requires OP.                     #
 # /vmbook - Gives the player a book example of the book used for the book restriction. Requires OP.   #
+# /vmwhitelist - Toggles on whitelisting mode to stop changes on server shopkeepers                   #
+# /vmremove - Toggles on the whitelist removing mode.                                                 #
+# /vmoff - Toggles off both the whitelist and whitelist removing modes.                               #
+# /vmtime - Gives the current time restrictions set for villagers - for testing only                  #
+# /vmeta - Outputs the meta values of the item held to the MetaOutput file.                           #
 #######################################################################################################
+
+# Custom Currency: Set here a material and item meta if you would like to use a custom currency for some of the villager trades.
+#Simply use the /vmeta command in game whilst holding any item in order to output the ItemMeta settings to a MetaOutput file
+#and copy the exact output over to this section, replacing the ItemMeta section below. Ensure that the Material is also set correctly.
+#Once set, use in trades lower in the config by using the material name 'CUSTOM'. An example is shown in the SilkTouch trade.
+
+CustomCurrency:
+  Material: EMERALD
+  ItemMeta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    enchants:
+      DAMAGE_ALL: 1
+
 
 # begin: Time in ticks that villagers can be traded from (day starts at 1000 ticks). Set to 2000 by default.
 # end: time in ticks that villagers can be traded until (night starts at 13000 ticks). Set to 8999 by default.
@@ -131,7 +150,7 @@ silk_touch_1:
   change: 0
   xpvalue: 2
   xpscale: 1
-  material: EMERALD
+  material: CUSTOM
   cost: 34
   book: 0
   uses: 1
