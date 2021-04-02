@@ -59,6 +59,9 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
         this.loadSettings();
         System.out.println("Villager Modifiers are running");
         getServer().getPluginManager().registerEvents(this, this);
+        int pluginId = 10822;
+        Metrics metrics = new Metrics(this, pluginId);
+        metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
     }
 
     public void loadSettings() {
@@ -227,9 +230,22 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
                                     event.setCancelled(true);
                                 }
                             }
+
+
                             if (vchange == 1) {
                                 int uses = recipe.getUses();
-                                ItemStack currency = new ItemStack(Material.getMaterial(vmaterial), vcost);
+
+                                ItemStack currency;
+
+                                if (vmaterial.equals("CUSTOM")) {
+                                    vmaterial = cfg.getString("CustomCurrency.Material").toUpperCase();
+                                    ItemMeta customMeta = (ItemMeta) cfg.get("CustomCurrency.ItemMeta");
+                                    currency = new ItemStack(Material.getMaterial(vmaterial), vcost);
+                                    currency.setItemMeta(customMeta);
+                                } else {
+                                    currency = new ItemStack(Material.getMaterial(vmaterial), vcost);
+                                }
+
                                 ItemStack tradeditem = recipe.getResult();
 
 
@@ -295,7 +311,19 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
                                     }
                                     if (vchange == 1) {
                                         int uses = recipe.getUses();
-                                        ItemStack emerald = new ItemStack(Material.getMaterial(vmaterial), vcost);
+
+                                        ItemStack emerald;
+
+                                        if (vmaterial.equals("CUSTOM")) {
+                                            vmaterial = cfg.getString("CustomCurrency.Material").toUpperCase();
+                                            ItemMeta customMeta = (ItemMeta) cfg.get("CustomCurrency.ItemMeta");
+                                            emerald = new ItemStack(Material.getMaterial(vmaterial), vcost);
+                                            emerald.setItemMeta(customMeta);
+                                        } else {
+                                            emerald = new ItemStack(Material.getMaterial(vmaterial), vcost);
+                                        }
+
+
                                         ItemStack enchantedbook = new ItemStack(recipe.getResult().getType(), 1);
                                         if (vbook == 1) {
                                             book_item.setItemMeta(custom_book);
@@ -468,6 +496,44 @@ public final class VillagerModifications extends JavaPlugin implements Listener 
             }
             return true;
         }
+
+        if (command.getName().equals("vmeta")) {
+            if (sender instanceof Player) {
+                Player p = (Player) sender;
+                if (!p.hasPermission("VillagerModification.meta")) {
+                    p.sendMessage("No permission");
+                    return true;
+                }
+
+                File metaFile = new File(this.mainPath, "metaOutput.yml");
+
+                FileConfiguration metaConfig = YamlConfiguration.loadConfiguration(metaFile);
+
+                metaConfig.set("ItemMeta",p.getInventory().getItemInMainHand().getItemMeta());
+
+                try {
+                    metaConfig.save(metaFile);
+                } catch (IOException var4) {
+                }
+
+                p.sendMessage("Item meta has been sent to the ItemMeta file in the Villager Overhaul folder.");
+                p.sendMessage("You can put this in the custom currency at the top of the config, and use ");
+                p.sendMessage("the material name 'CUSTOM' to set trades to use this. Simply copy the meta values");
+                p.sendMessage("into the correct space in the custom currency section. Please check on the");
+                p.sendMessage("spigot page for an example, or contact on my discord if you are having trouble.");
+
+
+
+            } else {
+                System.out.println("[VillagerModifications] Cannot check item meta in console.");
+                return true;
+            }
+
+            return true;
+        }
+
+
+
         return false;
     }
 
