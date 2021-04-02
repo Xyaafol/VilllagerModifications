@@ -1,6 +1,6 @@
 main: xy.plugins.villagermodifications.VillagerModifications
 author: Xy
-version: 1.4.2
+version: 1.5.0
 api-version: 1.13
 name: VillagerModifications
 
@@ -28,4 +28,8 @@ commands:
 
   vmtime:
     description: Sends a message to the user displaying the time in ticks that villagers are set to. Used for debugging only - not intended for players.
+    usage: /<command>
+
+  vmeta:
+    description: Outputs the itemmeta of the item in the command senders hand to the MetaOutput file.
     usage: /<command>
